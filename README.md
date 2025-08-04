@@ -1,4 +1,4 @@
-# Phase 2: Object Detection (YOLO)
+# Object Detection 
 
 **Author:** Nicolas Bieszczad
 
