@@ -67,15 +67,19 @@ The grid search results were logged and visualized using **Weights & Biases (W\&
 
 These were evaluated per epoch and per run.
 
-<p align="center">
-  <img src="Gridsearch_loss.png" width="80%" alt="Loss curves for different hyperparameter configurations">
-  <br/>
-  <img src="Gridsearch_metrics.png" width="80%" alt="Metric curves for different hyperparameter configurations">
-</p>
+<div align="center">
+  <img src="images_report/Gridsearch_loss.png" width="80%" alt="Loss curves for different hyperparameter configurations"><br>
+  
+  <img src="images_report/Gridsearch_metrics.png" width="80%" alt="Metric curves for different hyperparameter configurations"><br>
+ 
+  <figcaption><strong>Figure 1.</strong> Loss and metric curves for different hyperparameter configurations </figcaption><br><br>
+  
+</div>
 
-<p align="center">
-  <img src="gridsearch_heatmap.png" width="85%" alt="Heatmaps showing mAP@0.5 across batch size, learning rate, and optimizer">
-</p>
+<div align="center">
+  <img src="images_report/gridsearch_heatmap.png" width="85%" alt="Heatmaps showing mAP@0.5 across batch size, learning rate, and optimizer"><br>
+  <figcaption><strong>Figure 2.</strong> Heatmaps showing mAP@0.5 across batch size, learning rate, and optimizer </figcaption><br><br>
+</div>
 
 The configuration with **batch size = 32**, **optimizer = Adam**, and **learning rate = 0.0001** emerged as the most promising. It achieved the highest scores across most metrics — including `mAP@0.5`, `mAP@0.5:0.95`, and `Recall` — and ranked third only in `Precision`. However, in the context of worker detection, **recall is more critical**, as the primary objective is to detect all workers and minimize the risk of missing any. The small drop in precision was acceptable given the significant gain in recall.
 
@@ -100,30 +104,36 @@ During training, the model achieved strong performance metrics on the validation
 * **Recall**: 0.9832
 * **Precision**: 0.9861
 
-<p align="center">
-  <img src="training_results.png" width="70%" alt="Training evolution of loss and metrics">
-</p>
+<div align="center">
+  <img src="images_report/training_results.png" width="70%" alt="Training evolution of loss and metrics"><br>
+  <figcaption><strong>Figure 3.</strong> Training evolution of loss and metrics </figcaption><br><br>
+</div>
 
----
 
 ### Test Set
 
 After training, the final model was evaluated on the test set to assess its generalization capability. The performance remained consistently high, showing excellent detection and localization quality.
 
+<div align="center">
+
 | **Metric**    | **Score** |
 | ------------- | --------- |
 | Precision     | **99.1%** |
 | Recall        | **98.2%** |
-| mAP\@0.5      | **99.4%** |
-| mAP\@0.5:0.95 | **89.4%** |
+| mAP@0.5      | **99.4%** |
+| mAP@0.5:0.95 | **89.4%** |<br>
+
+<figcaption><strong>Table1.</strong> Metric results for test set </figcaption><br><br>
+</div>
 
 These results indicate that the model is highly effective at detecting workers in construction site imagery. The particularly high **recall** is crucial in safety-critical applications, ensuring that very few workers go undetected. The high **mAP\@0.5** further confirms reliable detection, while **mAP\@0.5:0.95** reflects accurate localization over a range of IoU thresholds.
 
 #### Confusion Matrix
 
-<p align="center">
-  <img src="confusion_matrix_test.png" width="70%" alt="Confusion matrix on test set">
-</p>
+<div align="center">
+  <img src="images_report/confusion_matrix_test.png" width="70%" alt="Confusion matrix on test set"><br>
+  <figcaption><strong>Figure 4.</strong> Confusion matrix on test set </figcaption><br><br>
+</div>
 
 From the confusion matrix:
 
@@ -131,26 +141,23 @@ From the confusion matrix:
 * **False Positives (FP)**: 330 backgrounds misclassified as workers
 * **False Negatives (FN)**: 64 workers missed (classified as background)
 
----
 
 #### Precision-Recall Curve
 
-<p align="center">
-  <img src="PR_curve_test.png" width="80%" alt="Precision-Recall curve on test set">
-</p>
+<div align="center">
+  <img src="images_report/PR_curve_test.png" width="80%" alt="Precision-Recall curve on test set"><br>
+  <figcaption><strong>Figure 5.</strong> Precision-Recall curve on test set </figcaption><br><br>
+</div>
 
 The large area under the curve confirms that the model maintains both high precision and high recall across a range of confidence thresholds.
 
----
-
 #### Qualitative Results
 
-<p align="center">
-  <img src="val_batch0_labels.jpg" width="47%" alt="Ground truth bounding boxes">
-  <img src="val_batch0_pred.jpg" width="47%" alt="Predicted bounding boxes">
-</p>
-
-<p align="center"><b>Figure:</b> Comparison between ground truth and predicted bounding boxes on test images.</p>
+<div align="center">
+  <img src="images_report/val_batch0_labels.jpg" width="47%" alt="Ground truth bounding boxes">
+  <img src="images_report/val_batch0_pred.jpg" width="47%" alt="Predicted bounding boxes"><br>
+  <figcaption><strong>Figure 6.</strong> Comparison between ground truth and predicted bounding boxes on test images </figcaption><br><br>
+</div>
 
 As shown above, the model is capable of accurately detecting workers in various conditions — including diverse poses, lighting, and backgrounds. Most detections are made with high confidence, demonstrating strong internal certainty.
 
@@ -158,10 +165,11 @@ As shown above, the model is capable of accurately detecting workers in various 
 
 To further assess the performance of the trained model in realistic conditions, we applied it to two videos captured from real-world construction sites that were not part of the training or testing datasets. These examples illustrate the model's ability to generalize and detect workers in diverse environments. We used here a confidence threshold of 0.5 Here are some frames coming from those videos.
 
-<p align="center">
-  <img src="real_life_1.png" width="48%" alt="Real-world image example 1">
-  <img src="real_life_2.png" width="48%" alt="Real-world image example 2">
-</p>
+<div align="center">
+  <img src="images_report/real_life_1.png" width="48%" alt="Real-world image example 1">
+  <img src="images_report/real_life_2.png" width="48%" alt="Real-world image example 2"><br>
+  <figcaption><strong>Figure 6.</strong> Real-world image examples </figcaption><br><br>
+</div>
 
 These results suggest that the model is robust when deployed in practical scenarios, maintaining high detection accuracy even under conditions that differ from the dataset.
 
